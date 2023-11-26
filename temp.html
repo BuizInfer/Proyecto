@@ -9,18 +9,30 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/tZ1iQD2Oy6tpcqG3uK1UqGqE7pWu29meAEHiI=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
 
-	<script>
-		var accessToken = "0b9829b008038ea9359cf44359a0968d43899bf5";
-		var deviceID = "2f002e001847393035313137"
-		var url = "https://api.particle.io/v1/devices/" + deviceID + "/boton";
-
-		function activarServo(callback) {
-			$.post(url, { params: "on", access_token: accessToken }, function(data) {
-				callback(data.return_value);
-			});
-		}
-	</script>
+    <script>
+        var accessToken = "0b9829b008038ea9359cf44359a0968d43899bf5";
+        var deviceID = "2f002e001847393035313137"
+        var url = "https://api.particle.io/v1/devices/" + deviceID + "/boton";
+        var urlHoraProgramada = "https://api.particle.io/v1/devices/" + deviceID + "/programarHora";
+    
+        function activarServo(callback) {
+            $.post(url, { params: "on", access_token: accessToken }, function(data) {
+                callback(data.return_value);
+            });
+        }
+    
+        // Nueva función para programar la hora con día, mes y año desde el HTML
+        function programarHora(callback) {
+            var fechaHora = prompt("Ingresa la fecha y hora en formato YYYY-MM-DD HH:mm");
+            if (fechaHora !== null) {
+                $.post(urlHoraProgramada, { params: fechaHora, access_token: accessToken }, function(data) {
+                    callback(data.return_value);
+                });
+            }
+        }
+    </script>
 </head>
+
 
 <body>
     <header>
@@ -29,6 +41,7 @@
 
     <div id="container">
         <input type="button" onClick="activarServo('on')" value="¡Alimentar Peces!" id="feedButton" />
+        <input type="button" onClick="programarHora()" value="Programar Hora" id="feedButton1" />
     </div>
 </body>
 
