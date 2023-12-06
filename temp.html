@@ -4,28 +4,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alimentador Automático de Peces</title>
+    <title>Proyecto Regador De Plantas</title>
     <script src="https://code.jquery.com/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/tZ1iQD2Oy6tpcqG3uK1UqGqE7pWu29meAEHiI=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('image.jpg'); /* Reemplaza 'tu-imagen-de-fondo.jpg' con la ruta de tu imagen */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        #container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #feedButton,
+        #feedButton1 {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        #feedButton1 {
+            background-color: #008CBA;
+        }
+
+        #note {
+            font-size: 16px;
+            color: #fff;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+        }
+
+        #recommendations {
+            margin: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+        }
+
+        #recommendations h2 {
+            color: #fff;
+            border-bottom: 1px solid #fff;
+            padding-bottom: 10px;
+        }
+
+        #recommendations ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #recommendations li {
+            margin-bottom: 10px;
+        }
+
+        #recommendations p {
+            color: #fff;
+        }
+
+        #recommendations a {
+            color: #4CAF50;
+        }
+    </style>
 
     <script>
         var accessToken = "5d4f38207f5915b93a75864ad8a36d79ad1db228";
         var deviceID = "2f002e001847393035313137"
         var url = "https://api.particle.io/v1/devices/" + deviceID + "/boton";
         var urlHoraProgramada = "https://api.particle.io/v1/devices/" + deviceID + "/programarHora";
-    
+
         function activarServo(callback) {
-            $.post(url, { params: "on", access_token: accessToken }, function(data) {
+            $.post(url, { params: "on", access_token: accessToken }, function (data) {
                 callback(data.return_value);
             });
         }
-    
-        // Nueva función para programar la hora con día, mes y año desde el HTML
+
         function programarHora(callback) {
             var fechaHora = prompt("Ingresa la fecha y hora en formato YYYY-MM-DD HH:mm");
             if (fechaHora !== null) {
-                $.post(urlHoraProgramada, { params: fechaHora, access_token: accessToken }, function(data) {
+                $.post(urlHoraProgramada, { params: fechaHora, access_token: accessToken }, function (data) {
                     callback(data.return_value);
                 });
             }
@@ -33,15 +113,31 @@
     </script>
 </head>
 
-
 <body>
     <header>
-        <h1>Alimentador De Peces Con Servomotor</h1>
+        <h1>Proyecto Regador De Plantas</h1>
     </header>
 
     <div id="container">
-        <input type="button" onClick="activarServo('on')" value="¡Alimentar Peces!" id="feedButton" />
-        <input type="button" onClick="programarHora()" value="Programar Hora" id="feedButton1" />
+        <input type="button" onClick="activarServo('on')" value="Regar Plantas" id="feedButton" />
+        <input type="button" onClick="programarHora()" value="Fijar Fecha Automática Para Riego" id="feedButton1" />
+        <div id="note">
+            <p>Nota: El regador de plantas se activará automáticamente cada día a la misma hora especificada a partir de la fecha programada.</p>
+        </div>
+    </div>
+
+    <div id="recommendations">
+        <h2>Recomendaciones para el Cuidado de Plantas</h2>
+        <ul>
+            <li>Riega tus plantas según sus necesidades específicas de agua.</li>
+            <li>Proporciona luz adecuada a cada tipo de planta.</li>
+            <li>Asegúrate de que las macetas tengan un buen drenaje.</li>
+            <li>Fertiliza tus plantas en la época adecuada del año.</li>
+            <li>Mantén un ambiente adecuado de humedad para plantas que lo requieran.</li>
+            <li>Podar las plantas regularmente para promover un crecimiento saludable.</li>
+            <li>Revise las plantas en busca de plagas y trate cualquier problema de inmediato.</li>
+        </ul>
+        <p>Descubre más sobre el cuidado de plantas en <a href="https://www.ecologiaverde.com/como-cuidar-las-plantas-3655.html" target="_blank">este enlace</a>.</p>
     </div>
 </body>
 
